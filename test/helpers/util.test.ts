@@ -1,4 +1,4 @@
-import {isDate, isObject} from "../../src/helpers/util";
+import {isDate, isPlainObject} from "../../src/helpers/util";
 
 
 describe("isDate test", () => {
@@ -12,13 +12,13 @@ describe("isDate test", () => {
   })
 });
 
-describe("isObject test", () => {
+describe("isPlainObject test", () => {
   it("val is Object", () => {
     const val = {foo: 'bar'};
-    expect(isObject(val)).toBe(true)
+    expect(isPlainObject(val)).toBe(true)
   });
   it("val is not Object", () => {
     const val = 'string';
-    expect(isObject(val)).toBe(false)
+    expect(isPlainObject(val)).toBe(false)
   })
 });

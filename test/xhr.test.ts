@@ -64,7 +64,7 @@ describe('Test xhr', () => {
   })
 
   it('onreadystatechange', () => {
-    const reqPromise = xhr({
+    xhr({
       url: '/base/post',
       method: 'post',
       params: {
@@ -79,7 +79,7 @@ describe('Test xhr', () => {
 
   it('has responseType text', () => {
     mockXHR.readyState = 4
-    const reqPromise = xhr({
+    xhr({
       url: '/base/post',
       method: 'post',
       params: {
@@ -95,7 +95,7 @@ describe('Test xhr', () => {
 
   it('has responseType json', () => {
     mockXHR.readyState = 4
-    const reqPromise = xhr({
+    xhr({
       url: '/base/post',
       method: 'post',
       params: {

@@ -1,12 +1,14 @@
-import { LxiosPromise, LxiosRequestConfig } from './types/lxios'
+import { LxiosPromise, LxiosRequestConfig, LxiosResponse } from './types/lxios'
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
-import { transformRequest } from './helpers/data'
+import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 
 function lxios(config: LxiosRequestConfig): LxiosPromise {
   processConfig(config)
-  return xhr(config)
+  return xhr(config).then(res => {
+    return transformResponseData(res)
+  })
 }
 
 function processConfig(config: LxiosRequestConfig): void {
@@ -27,6 +29,11 @@ function transformRequestData(config: LxiosRequestConfig): any {
 function transformHeaders(config: LxiosRequestConfig): any {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
+}
+
+function transformResponseData(res: LxiosResponse): LxiosResponse {
+  res.data = transformResponse(res.data)
+  return res
 }
 
 export default lxios

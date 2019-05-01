@@ -39,4 +39,17 @@ describe('Test lxios', () => {
       })
     )
   })
+
+  it('lxios with data', () => {
+    const req = lxios({
+      url: '/base/get',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      data: 'string'
+    })
+    mockXHR.onreadystatechange()
+    mockXHR.readyState = 4
+    mockXHR.onreadystatechange()
+  })
 })

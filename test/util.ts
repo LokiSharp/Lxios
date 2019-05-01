@@ -3,6 +3,7 @@ export const createMockXHR = () => {
     open: jest.fn(),
     send: jest.fn(),
     setRequestHeader: jest.fn(),
+    readyState: 4,
     getAllResponseHeaders: function() {
       return (
         'HTTP/1.1 200 OK\r\n' +

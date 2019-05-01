@@ -79,9 +79,6 @@ describe('Test xhr', () => {
 
   it('has responseType text', () => {
     mockXHR.readyState = 4
-    mockXHR.getAllResponseHeaders = function() {
-      return this.setRequestHeader
-    }
     const reqPromise = xhr({
       url: '/base/post',
       method: 'post',
@@ -98,9 +95,6 @@ describe('Test xhr', () => {
 
   it('has responseType json', () => {
     mockXHR.readyState = 4
-    mockXHR.getAllResponseHeaders = function() {
-      return this.setRequestHeader
-    }
     const reqPromise = xhr({
       url: '/base/post',
       method: 'post',

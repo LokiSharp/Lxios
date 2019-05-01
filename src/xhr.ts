@@ -1,4 +1,5 @@
 import { LxiosPromise, LxiosRequestConfig, LxiosResponse } from './types/lxios'
+import { parseHeaders } from './helpers/headers'
 
 export default function xhr(config: LxiosRequestConfig): LxiosPromise {
   return new Promise(resolve => {
@@ -16,7 +17,7 @@ export default function xhr(config: LxiosRequestConfig): LxiosPromise {
       if (request.readyState !== 4) {
         return
       }
-      const responseHeaders = request.getAllResponseHeaders()
+      const responseHeaders = parseHeaders(request.getAllResponseHeaders())
       const responseData = responseType !== 'text' ? request.response : request.responseText
       const response: LxiosResponse = {
         data: responseData,

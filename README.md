@@ -3,6 +3,7 @@
 由 LokiSharp 用 TypeScript 实现的 axios
 
 [![Build Status](https://travis-ci.org/LokiSharp/Lxios.svg?branch=master)](https://travis-ci.org/LokiSharp/Lxios)
+[![Coverage Status](https://coveralls.io/repos/github/LokiSharp/Lxios/badge.svg?branch=master)](https://coveralls.io/github/LokiSharp/Lxios?branch=master)
 
 ## Features
 

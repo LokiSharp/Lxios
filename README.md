@@ -2,6 +2,8 @@
 
 由 LokiSharp 用 TypeScript 实现的 axios
 
+[![Build Status](https://travis-ci.org/LokiSharp/Lxios.svg?branch=master)](https://travis-ci.org/LokiSharp/Lxios)
+
 ## Features
 
 - 在浏览器端使用 XMLHttpRequest 对象通讯

@@ -15,9 +15,9 @@
 ## Usage
 
 ```javascript
-const lxios = require('lxios')
+const lxios = require('lxios');
 
-axios({
+lxios({
   method: 'POST',
   url: '/user/LokiSharp',
   data: {

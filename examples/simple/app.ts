@@ -1,4 +1,4 @@
-import lxios from '../../src/index'
+import lxios from '../../src/lxios'
 
 lxios({
   method: 'get',
@@ -7,4 +7,4 @@ lxios({
     a: 1,
     b: 2
   }
-})
+});

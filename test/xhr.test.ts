@@ -11,7 +11,8 @@ describe("Test xhr", () => {
         params: {
           foo: ['bar', 'baz']
         },
-        data: 'data'
+        data: 'data',
+        headers: {'Test-Header': 'Test'}
       })
     )
   });
@@ -24,7 +25,34 @@ describe("Test xhr", () => {
         params: {
           foo: ['bar', 'baz']
         },
-        data: 'test data'
+        data: 'test data',
+        headers: {'Test-Header': 'Test'}
+      })
+    )
+  });
+
+  it("data null", () => {
+    expect(
+      xhr({
+        url: '/base/post',
+        method: 'post',
+        params: {
+          foo: ['bar', 'baz']
+        },
+        headers: {'Test-Header': 'Test'}
+      })
+    )
+  });
+
+  it("data null and Content-Type in headers", () => {
+    expect(
+      xhr({
+        url: '/base/post',
+        method: 'post',
+        params: {
+          foo: ['bar', 'baz']
+        },
+        headers: {'Test-Header': 'Test', 'Content-Type': 'Test'}
       })
     )
   });

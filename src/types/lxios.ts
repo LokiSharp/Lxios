@@ -11,4 +11,5 @@ export interface LxiosRequestConfig {
   method?: Method
   data?: any
   params?: any
+  headers?: any
 }

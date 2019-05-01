@@ -57,9 +57,15 @@ describe("Helpers url test", () => {
   it("buildURL url with params", () => {
     const url = '/get?foo=bar';
     const params = {
-      bar: 'baz'
+      bar: 'baz',
+      dec: 'daz'
     };
-    expect(buildURL(url, params)).toBe('/get?foo=bar&bar=baz')
+    expect(buildURL(url, params)).toBe('/get?foo=bar&bar=baz&dec=daz')
+  });
+
+  it("buildURL url without params", () => {
+    const url = '/get';
+    expect(buildURL(url)).toBe('/get')
   });
 
 });

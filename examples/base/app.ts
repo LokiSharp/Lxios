@@ -71,10 +71,24 @@ lxios({
   }
 });
 
-const arr = new Int32Array([21 ,31])
+lxios({
+  method: 'post',
+  url: '/base/post',
+  headers: {
+    'content-type': 'application/json',
+    'Accept': 'application/json, text/plain, */*'
+  },
+  data: {
+    a: 1,
+    b: 2
+  }
+});
+
+const paramsString = 'q=URLUtils.searchParams&topic=api';
+const searchParams = new URLSearchParams(paramsString)
 
 lxios({
   method: 'post',
-  url: '/base/buffer',
-  data: arr
+  url: '/base/post',
+  data: searchParams
 });

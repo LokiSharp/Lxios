@@ -43,13 +43,11 @@ export function buildURL(url: string, params?: any): string {
 
   let serializedParams = parts.join('&');
 
-  if (serializedParams) {
-    const marIndex = url.indexOf('#');
-    if (marIndex !== -1) {
-      url = url.slice(0, marIndex)
-    }
-    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
+  const marIndex = url.indexOf('#');
+  if (marIndex !== -1) {
+    url = url.slice(0, marIndex)
   }
+  url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
 
   return url
 }

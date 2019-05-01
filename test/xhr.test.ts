@@ -1,60 +1,117 @@
-import xhr from "../src/xhr"
-import "./util"
+import xhr from '../src/xhr'
+import { createMockXHR } from './util'
 
+describe('Test xhr', () => {
+  // @ts-ignore
+  const oldXMLHttpRequest = window.XMLHttpRequest
+  let mockXHR: any
 
-describe("Test xhr", () => {
-  it("get", () => {
-    expect(
-      xhr({
-        url: '/base/get',
-        method: 'get',
-        params: {
-          foo: ['bar', 'baz']
-        },
-        data: 'data',
-        headers: {'Test-Header': 'Test'}
-      })
-    )
-  });
+  beforeEach(() => {
+    mockXHR = createMockXHR()
+    // @ts-ignore
+    window.XMLHttpRequest = jest.fn(() => mockXHR)
+  })
 
-  it("post", () => {
-    expect(
-      xhr({
-        url: '/base/post',
-        method: 'post',
-        params: {
-          foo: ['bar', 'baz']
-        },
-        data: 'test data',
-        headers: {'Test-Header': 'Test'}
-      })
-    )
-  });
+  afterEach(() => {
+    // @ts-ignore
+    window.XMLHttpRequest = oldXMLHttpRequest
+  })
 
-  it("data null", () => {
-    expect(
-      xhr({
-        url: '/base/post',
-        method: 'post',
-        params: {
-          foo: ['bar', 'baz']
-        },
-        headers: {'Test-Header': 'Test'}
-      })
-    )
-  });
+  it('get', () => {
+    xhr({
+      url: '/base/get',
+      method: 'get',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      data: 'data',
+      headers: { 'Test-Header': 'Test' }
+    })
+  })
 
-  it("data null and Content-Type in headers", () => {
-    expect(
-      xhr({
-        url: '/base/post',
-        method: 'post',
-        params: {
-          foo: ['bar', 'baz']
-        },
-        headers: {'Test-Header': 'Test', 'Content-Type': 'Test'}
-      })
-    )
-  });
+  it('post', () => {
+    xhr({
+      url: '/base/post',
+      method: 'post',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      data: 'test data',
+      headers: { 'Test-Header': 'Test' }
+    })
+  })
 
-});
+  it('data null', () => {
+    xhr({
+      url: '/base/post',
+      method: 'post',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      headers: { 'Test-Header': 'Test' }
+    })
+  })
+
+  it('data null and Content-Type in headers', () => {
+    xhr({
+      url: '/base/post',
+      method: 'post',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      headers: { 'Test-Header': 'Test', 'Content-Type': 'Test' }
+    })
+  })
+
+  it('onreadystatechange', () => {
+    const reqPromise = xhr({
+      url: '/base/post',
+      method: 'post',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      headers: { 'Test-Header': 'Test', 'Content-Type': 'Test' },
+      responseType: 'text'
+    }).then(res => {
+      console.log(res)
+    })
+  })
+
+  it('has responseType text', () => {
+    mockXHR.readyState = 4
+    mockXHR.getAllResponseHeaders = function() {
+      return this.setRequestHeader
+    }
+    const reqPromise = xhr({
+      url: '/base/post',
+      method: 'post',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      headers: { 'Test-Header': 'Test', 'Content-Type': 'Test' },
+      responseType: 'text'
+    })
+    mockXHR.onreadystatechange()
+    mockXHR.readyState = 1
+    mockXHR.onreadystatechange()
+  })
+
+  it('has responseType json', () => {
+    mockXHR.readyState = 4
+    mockXHR.getAllResponseHeaders = function() {
+      return this.setRequestHeader
+    }
+    const reqPromise = xhr({
+      url: '/base/post',
+      method: 'post',
+      params: {
+        foo: ['bar', 'baz']
+      },
+      headers: { 'Test-Header': 'Test', 'Content-Type': 'Test' },
+      responseType: 'json'
+    })
+    mockXHR.onreadystatechange()
+    mockXHR.readyState = 1
+    mockXHR.onreadystatechange()
+  })
+})

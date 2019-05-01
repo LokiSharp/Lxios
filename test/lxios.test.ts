@@ -1,31 +1,37 @@
-import lxios from "../src/lxios"
-import "./util"
+import lxios from '../src/lxios'
+import { createMockXHR } from './util'
 
-const xhrMockClass = () => ({
-  open: jest.fn(),
-  send: jest.fn(),
-  setRequestHeader: jest.fn()
-});
+describe('Test lxios', () => {
+  // @ts-ignore
+  const oldXMLHttpRequest = window.XMLHttpRequest
+  let mockXHR: any
 
-// @ts-ignore
-window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass);
+  beforeEach(() => {
+    mockXHR = createMockXHR()
+    // @ts-ignore
+    window.XMLHttpRequest = jest.fn(() => mockXHR)
+  })
 
-describe("Test lxios", () => {
-  it("lxios with headers", () => {
-    expect(lxios(
-      {
+  afterEach(() => {
+    // @ts-ignore
+    window.XMLHttpRequest = oldXMLHttpRequest
+  })
+
+  it('lxios with headers', () => {
+    expect(
+      lxios({
         url: '/base/get',
         params: {
           foo: ['bar', 'baz']
         },
-        headers: {'Test-Header': 'Test'}
+        headers: { 'Test-Header': 'Test' }
       })
     )
-  });
+  })
 
-  it("lxios without headers", () => {
-    expect(lxios(
-      {
+  it('lxios without headers', () => {
+    expect(
+      lxios({
         url: '/base/get',
         params: {
           foo: ['bar', 'baz']
@@ -33,4 +39,4 @@ describe("Test lxios", () => {
       })
     )
   })
-});
+})
